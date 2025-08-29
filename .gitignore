@@ -1,0 +1,27 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+env/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Keras / TensorFlow model files
+*.h5
+*.keras
+*.pb
+checkpoints/
+saved_model/
+*.safetensors
+
+# Training logs
+*.tfevents.*
+
