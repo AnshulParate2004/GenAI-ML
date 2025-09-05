@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Dark theme interview platform design */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 95%;
+
+    /* Purple gradient primary */
+    --primary: 270 91% 65%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 270 91% 70%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 270 91% 65%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 270 91% 65%;
+
+    --radius: 0.75rem;
+
+    /* Custom interview platform colors */
+    --nav-background: 0 0% 6%;
+    --nav-item: 0 0% 70%;
+    --nav-item-active: 270 91% 65%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(270 91% 58%), hsl(270 91% 70%));
+    --gradient-secondary: linear-gradient(135deg, hsl(0 0% 10%), hsl(0 0% 15%));
+    --gradient-hero: linear-gradient(135deg, hsl(270 91% 15%), hsl(270 91% 8%));
+    
+    /* Shadows */
+    --shadow-primary: 0 10px 40px -10px hsl(270 91% 65% / 0.3);
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}

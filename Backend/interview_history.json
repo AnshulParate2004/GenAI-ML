@@ -1,0 +1,20 @@
+[
+    {
+        "question": "Tell me about yourself.",
+        "answer": "Hello, I am Anshul Parathy, currently pursuing my BTech in Computer Science engineering and I am passionate about my work. Looking forward to work in your company.",
+        "score": 4,
+        "audio_file": "D:\\GenAI-ML\\Backend\\VedioRecording\\bcf4395f-8a6e-45b6-8ed6-f5061ca97d26.wav"
+    },
+    {
+        "question": "Tell me about yourself.",
+        "answer": "No, I don't want to provide.",
+        "score": 1,
+        "audio_file": "D:\\GenAI-ML\\Backend\\VedioRecording\\1c4ee3d6-67c1-45fc-a325-ece272937a7c.wav"
+    },
+    {
+        "question": "Tell me about yourself.",
+        "answer": "No, I don't want to provide.",
+        "score": 1,
+        "audio_file": "D:\\GenAI-ML\\Backend\\VedioRecording\\0d6159ad-bc45-4843-9fdd-65134f888fbd.wav"
+    }
+]
