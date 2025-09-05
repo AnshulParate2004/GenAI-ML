@@ -1,38 +1,62 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
 import os
 import uuid
+from GenAI.Intelligent_bot import IntelligentBot
 
-# Import bot from GenAI
-from GenAI.InteligentBot import IntelligentBot
-
+# ---------------------------
+# FastAPI app initialization
+# ---------------------------
 app = FastAPI()
+
+# ✅ Enable CORS for frontend requests
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # ⚠ Replace "" with your frontend domain in production
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow GET, POST, OPTIONS, etc.
+    allow_headers=["*"],
+)
+
+# ---------------------------
+# Initialize bot + directories
+# ---------------------------
 bot = IntelligentBot()
 
-# Directory to save uploaded files
 UPLOAD_DIR = r"D:\GenAI-ML\Backend\VedioRecording"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 
+# ---------------------------
+# API Endpoints
+# ---------------------------
+
 @app.post("/start_interview")
 async def start_interview():
-    """Start interview and return first question as wav"""
-    wav_file = bot.get_first_question()
-    return FileResponse(
-        path=wav_file,
-        media_type="audio/wav",
-        filename=os.path.basename(wav_file)
-    )
+    try:
+        print(">>> /start_interview called")
+        wav_path = bot.get_first_question()
+        print(f">>> Got wav path: {wav_path}")
+        return FileResponse(
+            wav_path,
+            media_type="audio/wav",
+            filename=os.path.basename(wav_path)
+        )
+    except Exception as e:
+        import traceback
+        print(">>> ERROR in /start_interview:", e)
+        traceback.print_exc()
+        return {"error": str(e)}
+
 
 
 @app.post("/submit_answer")
-async def submit_answer(
-    audio: UploadFile = File(...),
-    video: UploadFile = File(...)
-):
-    """Submit answer (audio + video), return next bot question wav"""
+async def submit_answer(audio: UploadFile = File(...), video: UploadFile = File(...)):
+    """Receive candidate's answer (audio+video), process, return next bot question"""
 
     # Save audio file
+
     audio_path = os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}.wav")
     with open(audio_path, "wb") as f:
         f.write(await audio.read())
@@ -42,12 +66,12 @@ async def submit_answer(
     with open(video_path, "wb") as f:
         f.write(await video.read())
 
-    # Process answer with IntelligentBot
-    bot_question_wav = bot.process_answer(audio_path)
+    # Process the answer through IntelligentBot
+    wav_path = bot.process_answer(audio_path)
 
-    # Return next bot question as WAV
+    # Return the next bot question as WAV file
     return FileResponse(
-        path=bot_question_wav,
+        wav_path,
         media_type="audio/wav",
-        filename=os.path.basename(bot_question_wav)
+        filename=os.path.basename(wav_path)
     )
