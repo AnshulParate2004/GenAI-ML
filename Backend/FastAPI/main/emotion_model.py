@@ -10,12 +10,10 @@ logger = logging.getLogger(__name__)
 
 # Initialize model
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 emotion_processor = Wav2Vec2Processor.from_pretrained(EMOTION_PATH)
 emotion_model = Wav2Vec2ForSequenceClassification.from_pretrained(EMOTION_PATH)
 emotion_model.to(device)
 emotion_model.eval()
-
 emotion_model.config.id2label = {i: lab for i, lab in enumerate(CUSTOM_LABELS)}
 
 def predict_emotion(audio_tensor, sampling_rate=16000):
